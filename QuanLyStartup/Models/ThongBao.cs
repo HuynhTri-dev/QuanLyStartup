@@ -9,7 +9,7 @@ namespace QuanLyStartup.Models
         [Key]
         public int IDNoti { get; set; }
 
-        [Required]
+        [Required, MaxLength(int.MaxValue)]
         public string NoiDung { get; set; } = string.Empty;
 
         public DateTime NgayGui { get; set; } = DateTime.Now;

@@ -14,16 +14,16 @@ namespace QuanLyStartup.Models
         [Required, MaxLength(255)]
         public string HoTen { get; set; } = string.Empty;
 
-        [MaxLength(500)]
+        [MaxLength(int.MaxValue)]
         public string AvatarUrl { get; set; } = "/assets/users-avatar/tri lor.jpg"; // Đường dẫn mặc định
 
-        [Required, MaxLength(255), EmailAddress]
+        [Required, MaxLength(int.MaxValue), EmailAddress]
         public string Email { get; set; } = string.Empty;
 
-        [Required, MaxLength(255)]
+        [Required, MaxLength(int.MaxValue)]
         public string MatKhau { get; set; } = string.Empty;
 
-        [Required, MaxLength(20)]
+        [Required, MaxLength(200)]
         public string VaiTro { get; set; } = string.Empty;
 
         public DateTime NgayTao { get; set; } = DateTime.Now;

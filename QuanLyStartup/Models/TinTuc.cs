@@ -9,9 +9,10 @@ namespace QuanLyStartup.Models
         [Key]
         public int IDTinTuc { get; set; }
 
-        public string ImgTinTuc { get; set; } = string.Empty;
+        [MaxLength(int.MaxValue)]
+        public string? ImgTinTuc { get; set; } = string.Empty;
 
-        [Required]
+        [Required, MaxLength(int.MaxValue)]
         public string NoiDung { get; set; } = string.Empty;
 
         public DateTime NgayDang { get; set; } = DateTime.Now;

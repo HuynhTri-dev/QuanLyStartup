@@ -10,10 +10,10 @@ namespace QuanLyStartup.Models
         [Key]
         public int IDStartup { get; set; }
 
-        [Required, MaxLength(255)]
+        [Required, MaxLength(int.MaxValue)]
         public string TenStartup { get; set; } = string.Empty;
 
-        [MaxLength(500)]
+        [MaxLength(int.MaxValue)]
         public string? MoTa { get; set; }
 
         // Cập nhật IDLinhVuc để nullable

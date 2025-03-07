@@ -9,6 +9,7 @@ namespace QuanLyStartup.Models
         [Key]
         public int ID { get; set; }
         public int DiemDanhGia { get; set; }
+        [MaxLength(int.MaxValue)]
         public string? NhanXet { get; set; }
         public DateTime NgayDanhGia { get; set; } = DateTime.Now;
 
