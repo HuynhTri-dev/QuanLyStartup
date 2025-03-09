@@ -29,9 +29,6 @@ namespace QuanLyStartup.Models
 
         public DateTime NgayTao { get; set; } = DateTime.Now;
 
-        [Required]
-        public bool XacThucEmail { get; set; } = false;
-
         // Quan hệ 1-N
         public ICollection<Startup> Startups { get; set; } = new List<Startup>();
         public ICollection<HopDongDauTu> HopDongDauTus { get; set; } = new List<HopDongDauTu>();

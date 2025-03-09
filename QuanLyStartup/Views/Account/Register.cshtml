@@ -8,7 +8,7 @@
 <div class="d-flex justify-content-center align-items-center min-vh-100 container">
     <div class="register-box p-4 rounded shadow">
         <h3 class="fw-bold mb-4 text-center">Register</h3>
-        <form asp-controller="Account" asp-action="register" id="register-form" method="post">
+        <form asp-controller="Account" asp-action="Register" id="register-form" method="post">
             <div class="mb-3">
                 <label asp-for="HoTen" class="form-label">Full Name</label>
                 <input type="text"
@@ -25,6 +25,16 @@
                        placeholder="Enter your email"
                        required />
             </div>
+
+            <div class="mb-3">
+                <label asp-for="VaiTro" class="form-label">Role</label>
+                <select class="form-select" asp-for="VaiTro" required>
+                    <option value="">Select your role</option>
+                    <option value="Startup">Startup</option>
+                    <option value="Investor">Investor</option>
+                </select>
+            </div>
+
             <div class="mb-3">
                 <label asp-for="MatKhau" class="form-label">Password</label>
                 <input type="password"

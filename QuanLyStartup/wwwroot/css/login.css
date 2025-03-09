@@ -6,10 +6,14 @@ body {
   background-color: var(--bg-light);
 }
 
+.register-box {
+    width: 50%;
+}
+
 .forgot-password-box h3,
 .register-box h3,
 #login-content h3 {
-  font-size: 28px;
+    font-size: 28px;
 }
 
 /* Login box */

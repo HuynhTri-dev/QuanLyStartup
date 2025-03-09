@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QuanLyStartup.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace QuanLyStartup.Data
 {
@@ -24,6 +26,7 @@ namespace QuanLyStartup.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<HopDongDauTu>()
                 .Property(h => h.TongTien)
                 .HasColumnType("decimal(18,2)");
