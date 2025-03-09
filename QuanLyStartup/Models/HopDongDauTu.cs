@@ -23,6 +23,8 @@ namespace QuanLyStartup.Models
         [MaxLength(int.MaxValue)]
         public string? NoiDungHopDong { get; set; }
 
+        public string TrangThai { get; set; }
+
         // Khóa ngoại
         public int IDStartup { get; set; }
         [ForeignKey("IDStartup")]

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,7 +16,7 @@ namespace QuanLyStartup.Models
         public string HoTen { get; set; } = string.Empty;
 
         [MaxLength(int.MaxValue)]
-        public string AvatarUrl { get; set; } = "/assets/users-avatar/tri lor.jpg"; // Đường dẫn mặc định
+        public string AvatarUrl { get; set; } = "~/assets/user/image.png"; // Đường dẫn mặc định
 
         [Required, MaxLength(int.MaxValue), EmailAddress]
         public string Email { get; set; } = string.Empty;
@@ -27,6 +28,9 @@ namespace QuanLyStartup.Models
         public string VaiTro { get; set; } = string.Empty;
 
         public DateTime NgayTao { get; set; } = DateTime.Now;
+
+        [Required]
+        public bool XacThucEmail { get; set; } = false;
 
         // Quan hệ 1-N
         public ICollection<Startup> Startups { get; set; } = new List<Startup>();

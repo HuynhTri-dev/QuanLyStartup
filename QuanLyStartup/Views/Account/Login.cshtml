@@ -1,0 +1,96 @@
+﻿@{
+    Layout = "_AuthLayout";
+    ViewData["Title"] = "Login";
+}
+
+    <div
+      class="d-flex justify-content-center align-items-center min-vh-100 container"
+    >
+      <div class="login-box p-4 rounded shadow">
+        <!-- Tabs -->
+        <ul class="nav nav-pills mb-3 d-flex justify-content-around mb-4">
+          <li class="nav-item">
+            <button
+              class="nav-link startup active"
+              id="startup-tab"
+              onclick="switchTab('startup')"
+            >
+              Startup
+            </button>
+          </li>
+          <li class="nav-item">
+            <button
+              class="nav-link investor"
+              id="investor-tab"
+              onclick="switchTab('investor')"
+            >
+              Investor
+            </button>
+          </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div id="login-content"></div>
+      </div>
+    </div>
+
+    <script>
+    const registerUrl = '@Url.Action("Register", "Account")';
+    switchTab = (role) => {
+        $(".nav-link").removeClass("active");
+        $("#" + role + "-tab").addClass("active");
+
+        // Lấy phần tử nội dung đăng nhập
+        const loginContent = $("#login-content");
+
+        // Ẩn nội dung bằng hiệu ứng trượt sang trái
+        loginContent.animate({ opacity: 0, marginLeft: "-100px" }, 200, function () {
+            // Khi ẩn xong, thay đổi nội dung đăng nhập
+            renderLoginForm(role);
+
+            // Hiển thị lại nội dung bằng hiệu ứng trượt vào từ trái
+            loginContent.css({ marginLeft: "100px" }).animate({ opacity: 1, marginLeft: "0px" }, 200);
+        });
+    }
+
+
+
+      function renderLoginForm(role) {
+        const loginContent = document.getElementById("login-content");
+        loginContent.innerHTML = `
+        <h3 class="fw-bold mb-4 text-center">Login as ${role.charAt(0).toUpperCase() + role.slice(1)
+            }</h3>
+        <form onsubmit="handleSubmit(event, '${role}')">
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" placeholder="Enter your password" required>
+            </div>
+            <div class="mb-3 text-end">
+                <a href="@Url.Action("ForgotPassword", "Account")" class="forget-link text-decoration-none">Forgot Password?</a>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn ${role ==="startup" ? "btn-primary" : "btn-success"
+            } w-50">Login</button>
+                <a href="${registerUrl}" class="register-btn btn btn-outline-secondary w-45">Register</a>
+            </div>
+        </form>
+        `;
+      }
+
+    function handleSubmit(event, role) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        console.log(`${role} Login Data:`, Object.fromEntries(formData.entries()));
+
+        // Chuyển hướng đến Home sau khi đăng nhập
+        window.location.href = "/Home/Index";
+    }
+
+
+      // Load default tab
+      window.onload = () => switchTab("startup");
+    </script>
