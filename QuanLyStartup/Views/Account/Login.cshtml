@@ -6,6 +6,7 @@
     <div
       class="d-flex justify-content-center align-items-center min-vh-100 container"
     >
+    
       <div class="login-box p-4 rounded shadow">
         <!-- Tabs -->
         <ul class="nav nav-pills mb-3 d-flex justify-content-around mb-4">
@@ -31,36 +32,38 @@
 
         <!-- Tab Content -->
         <div id="login-content"></div>
+
+        @if (ViewBag.Error != null)
+        {
+            <div id="error-message" class="alert alert-danger mt-3 text-center">
+                @ViewBag.Error
+            </div>
+        }
       </div>
     </div>
 
-    <script>
+<script>
     const registerUrl = '@Url.Action("Register", "Account")';
+    const loginUrl = '@Url.Action("Login", "Account")';
+    const forgotPasswordUrl = '@Url.Action("ForgotPassword", "Account")';
+
     switchTab = (role) => {
         $(".nav-link").removeClass("active");
         $("#" + role + "-tab").addClass("active");
 
-        // Lấy phần tử nội dung đăng nhập
         const loginContent = $("#login-content");
 
-        // Ẩn nội dung bằng hiệu ứng trượt sang trái
         loginContent.animate({ opacity: 0, marginLeft: "-100px" }, 200, function () {
-            // Khi ẩn xong, thay đổi nội dung đăng nhập
             renderLoginForm(role);
-
-            // Hiển thị lại nội dung bằng hiệu ứng trượt vào từ trái
             loginContent.css({ marginLeft: "100px" }).animate({ opacity: 1, marginLeft: "0px" }, 200);
         });
     }
 
-
-
-      function renderLoginForm(role) {
+    function renderLoginForm(role) {
         const loginContent = document.getElementById("login-content");
         loginContent.innerHTML = `
-        <h3 class="fw-bold mb-4 text-center">Login as ${role.charAt(0).toUpperCase() + role.slice(1)
-            }</h3>
-        <form onsubmit="handleSubmit(event, '${role}')">
+        <h3 class="fw-bold mb-4 text-center">Login as ${role.charAt(0).toUpperCase() + role.slice(1)}</h3>
+        <form method="post" action="${loginUrl}">
             <div class="mb-3">
                 <label class="form-label">Email</label>
                 <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
@@ -69,28 +72,23 @@
                 <label class="form-label">Password</label>
                 <input type="password" class="form-control" name="password" placeholder="Enter your password" required>
             </div>
-            <div class="mb-3 text-end">
-                <a href="@Url.Action("ForgotPassword", "Account")" class="forget-link text-decoration-none">Forgot Password?</a>
+            <div class="mb-3 d-flex justify-content-between">
+                <a href="${forgotPasswordUrl}" class="forget-link text-decoration-none">Forgot Password?</a>
             </div>
             <div class="d-flex justify-content-between">
-                <button type="submit" class="btn ${role ==="startup" ? "btn-primary" : "btn-success"
-            } w-50">Login</button>
+                <button type="submit" class="btn ${role ==="startup" ? "btn-primary" : "btn-success"} w-50">Login</button>
                 <a href="${registerUrl}" class="register-btn btn btn-outline-secondary w-45">Register</a>
             </div>
         </form>
         `;
-      }
 
-    function handleSubmit(event, role) {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        console.log(`${role} Login Data:`, Object.fromEntries(formData.entries()));
-
-        // Chuyển hướng đến Home sau khi đăng nhập
-        window.location.href = "/Home/Index";
+        // Nếu có lỗi từ server, hiển thị lên giao diện
+        const errorMessage = document.getElementById("error-message");
+        if (errorMessage) {
+            loginContent.insertAdjacentElement("beforebegin", errorMessage);
+        }
     }
 
-
-      // Load default tab
-      window.onload = () => switchTab("startup");
-    </script>
+    // Load tab mặc định
+    window.onload = () => switchTab("startup");
+</script>

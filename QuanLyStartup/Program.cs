@@ -10,39 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Cấu hình Identity
-//builder.Services.AddIdentity<NguoiDung, IdentityRole>(options =>
-//{
-//    options.SignIn.RequireConfirmedEmail = true;
-//})
-//    .AddEntityFrameworkStores<ApplicationDbContext>()
-//    .AddDefaultTokenProviders();
-
-// Cấu hình gửi email
-//builder.Services.AddTransient<IEmailSender, EmailSender>();
-
-//builder.Services.ConfigureApplicationCookie(options =>
-//{
-//    options.Cookie.HttpOnly = true;
-//    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Chỉ gửi qua HTTPS
-//    options.Cookie.SameSite = SameSiteMode.None; // Đảm bảo không bị chặn
-//});
-
-
-//builder.Services.AddSession(options =>
-//{
-//    options.Cookie.HttpOnly = true;
-//    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Chỉ gửi cookie qua HTTPS
-//    options.Cookie.SameSite = SameSiteMode.Lax; // Ngăn chặn CSRF
-//});
-
-//builder.Services.AddAntiforgery(options =>
-//{
-//    options.Cookie.HttpOnly = true;
-//    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-//    options.Cookie.SameSite = SameSiteMode.None;
-//});
-
+builder.Services.AddSession();
 
 // Thêm MVC
 builder.Services.AddControllersWithViews();
@@ -56,12 +24,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-//app.UseCookiePolicy(new CookiePolicyOptions
-//{
-//    MinimumSameSitePolicy = SameSiteMode.None,
-//    Secure = CookieSecurePolicy.Always
-//});
-
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
